@@ -85,6 +85,7 @@ def practice_problem2a(sequence, delta):
     ####################################################################
 
 
+
 def run_test_practice_problem2b():
     """ Tests the   practice_problem2b  function. """
     # ------------------------------------------------------------------
