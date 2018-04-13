@@ -43,7 +43,7 @@ def main():
     run_test_append_string()
     run_test_double()
     run_test_shrink()
-#     run_test_double_then_shrink()
+    run_test_double_then_shrink()
 #     run_test_reset()
 #     run_test_steal()
 #     run_test_get_history()
@@ -107,6 +107,9 @@ class Box(object):
         else:
             self.contents = contents
         self.volume = volume
+        self.number_discarded_characters = 0
+        self.original_contents = self.contents
+        self.original_volume = self.volume
 
 
     def append_string(self, additional_contents):
@@ -177,6 +180,7 @@ class Box(object):
         for j in range(number_of_characters,len(additional_contents)):
             stuff_to_return = stuff_to_return + additional_contents[j]
         if len(stuff_to_return) > 0:
+            self.number_discarded_characters = self.number_discarded_characters + len(stuff_to_return)
             return stuff_to_return
         else:
             return ''
@@ -295,7 +299,8 @@ class Box(object):
 
             for k in range(new_volume, len(old_contents)):
                 stuff_to_return = stuff_to_return + old_contents[k]
-
+            if len(stuff_to_return) > 0:
+                self.number_discarded_characters = self.number_discarded_characters + len(stuff_to_return)
             return stuff_to_return
 
 
@@ -343,7 +348,7 @@ class Box(object):
           :type new_volume: int
         """
         # --------------------------------------------------------------
-        # TODO: 6. Implement and test this function.
+        # Done: 6. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -351,6 +356,9 @@ class Box(object):
         #    DIFFICULTY:      5
         #    TIME ESTIMATE:   5 minutes.
         # --------------------------------------------------------------
+        self.double()
+        self.shrink(new_volume)
+        return self.number_discarded_characters
 
     def reset(self):
         """
